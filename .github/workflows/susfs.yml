@@ -1,4 +1,4 @@
-name: Kernel Build (alioth) - clang-r547379 SUSFS + KSU NEXT
+name: Kernel Build (alioth) - SUSFS + KSU NEXT | clang-r547379 
 
 on:
   pull_request:

@@ -1,4 +1,4 @@
-name: Kernel Build (alioth) - KSUNEXT ONLY clang-r547379
+name: Kernel Build (apollo) - KSUNEXT ONLY clang-r547379
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ on:
         default: 'base'
       CODENAME:
         description: 'Phone Codename'
-        default: 'alioth'
+        default: 'apollo'
         required: true
       ANYKERNEL_URL:
         description: 'AnyKernel Url (leave blank if you dont want AnyKernel)'

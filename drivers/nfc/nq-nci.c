@@ -1188,7 +1188,7 @@ reset_enable_gpio:
 			nqx_dev->nqx_info.info.rom_version = 0;
 			nqx_dev->nqx_info.info.fw_minor = 0;
 			nqx_dev->nqx_info.info.fw_major = 0;
-			goto err_nfcc_reset_failed;
+			goto err_nfcc_hw_check;
 		}
 
 		if (gpio_is_valid(nqx_dev->firm_gpio)) {
@@ -1240,7 +1240,7 @@ reset_enable_gpio:
 			nqx_dev->nqx_info.info.fw_major =
 				nci_get_version_rsp[7];
 		}
-		goto err_nfcc_reset_failed;
+		goto err_nfcc_hw_check;
 	}
 
 	/* hardware dependent delay */

@@ -686,12 +686,12 @@ else ifeq ($(cc-name),clang)
 # Enable hot cold split optimization
 KBUILD_CFLAGS   += -mllvm -hot-cold-split=true
 # Enable MLGO optimizations for register allocation
-KBUILD_CFLAGS   += -mllvm -regalloc-enable-advisor=release
+# KBUILD_CFLAGS   += -mllvm -regalloc-enable-advisor=release
 KBUILD_CFLAGS   += -O3 -march=armv8.2-a+lse+crypto+dotprod --cuda-path=/dev/null
 KBUILD_AFLAGS   += -O3 -march=armv8.2-a+lse+crypto+dotprod
 KBUILD_LDFLAGS  += -O3 --plugin-opt=O3
-KBUILD_LDFLAGS  += -mllvm -regalloc-enable-advisor=release
-KBUILD_LDFLAGS  += -mllvm -enable-ml-inliner=release
+# KBUILD_LDFLAGS  += -mllvm -regalloc-enable-advisor=release
+# KBUILD_LDFLAGS  += -mllvm -enable-ml-inliner=release
 else
 KBUILD_CFLAGS   += -O2
 KBUILD_AFLAGS   += -O2
@@ -772,9 +772,23 @@ KBUILD_CFLAGS	+= -mllvm -polly-run-dce
 endif
 endif
 ifneq ($(CROSS_COMPILE),)
-CLANG_TRIPLE	?= $(CROSS_COMPILE)
-CLANG_TARGET	:= --target=$(notdir $(CLANG_TRIPLE:%-=%))
-GCC_TOOLCHAIN	:= $(realpath $(dir $(shell which $(LD)))/..)
+CLANG_TRIPLE    ?= $(CROSS_COMPILE)
+endif
+
+ifeq ($(CLANG_TRIPLE),)
+    ifeq ($(ARCH),arm64)
+        CLANG_TRIPLE := aarch64-linux-gnu-
+    else ifeq ($(ARCH),arm)
+        CLANG_TRIPLE := arm-linux-gnueabi-
+    endif
+endif
+
+ifneq ($(CLANG_TRIPLE),)
+CLANG_TARGET    := --target=$(notdir $(CLANG_TRIPLE:%-=%))
+endif
+
+ifneq ($(CROSS_COMPILE),)
+GCC_TOOLCHAIN   := $(realpath $(dir $(shell which $(LD)))/..)
 endif
 ifneq ($(GCC_TOOLCHAIN),)
 CLANG_GCC_TC	:= --gcc-toolchain=$(GCC_TOOLCHAIN)

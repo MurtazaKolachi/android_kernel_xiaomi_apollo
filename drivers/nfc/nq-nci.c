@@ -21,9 +21,7 @@
 #ifdef CONFIG_COMPAT
 #include <linux/compat.h>
 #endif
-#ifdef NQ_READ_INT
 #include <linux/jiffies.h>
-#endif
 #include <linux/regulator/consumer.h>
 
 #define DISABLE_NCI_DEBUG 1
@@ -1160,11 +1158,9 @@ reset_enable_gpio:
 	dev_err(&client->dev,
 		"%s: - reset NFCC 1 - pull down and pull up VEN\n", __func__);
 	/* making sure that the NFCC starts in a clean state. */
-#ifdef NQ_READ_INT
 	gpio_set_value(enable_gpio, 1);/* HPD : Enable*/
 	/* hardware dependent delay */
 	usleep_range(10000, 10100);
-#endif
 	gpio_set_value(enable_gpio, 0);/* ULPM: Disable */
 	/* hardware dependent delay */
 	usleep_range(10000, 10100);
@@ -1250,13 +1246,11 @@ reset_enable_gpio:
 	/* hardware dependent delay */
 	msleep(60);
 
-#ifdef NQ_READ_INT
 	ret = is_data_available_for_read(nqx_dev);
 	if (ret <= 0) {
 		nqx_disable_irq(nqx_dev);
 		goto err_nfcc_hw_check;
 	}
-#endif
 
 	/* Read Response of RESET command */
 	ret = i2c_master_recv(client, nci_reset_rsp, NCI_RESET_RSP_LEN);
@@ -1272,13 +1266,11 @@ reset_enable_gpio:
 	/* hardware dependent delay */
 	msleep(30);
 
-#ifdef NQ_READ_INT
 	ret = is_data_available_for_read(nqx_dev);
 	if (ret <= 0) {
 		nqx_disable_irq(nqx_dev);
 		goto err_nfcc_hw_check;
 	}
-#endif
 
 	/* Read Notification of RESET command */
 	ret = i2c_master_recv(client, nci_reset_ntf, NCI_RESET_NTF_LEN);

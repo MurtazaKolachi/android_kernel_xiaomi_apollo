@@ -2361,7 +2361,7 @@ static irqreturn_t bq2597x_charger_interrupt(int irq, void *dev_id)
 	}
 	bq->irq_waiting = false;
 	/* dump some impoartant registers and alarm fault status for debug */
-	bq2597x_dump_important_regs(bq);
+	/* bq2597x_dump_important_regs(bq); */
 	bq2597x_check_alarm_status(bq);
 	bq2597x_check_fault_status(bq);
 	mutex_unlock(&bq->irq_complete);
@@ -2563,7 +2563,7 @@ static int bq2597x_suspend(struct device *dev)
 	bq->resume_completed = false;
 	mutex_unlock(&bq->irq_complete);
 	bq2597x_enable_adc(bq, false);
-	bq_err("Suspend successfully!");
+	bq_dbg("Suspend successfully!");
 
 	return 0;
 }
@@ -2598,7 +2598,7 @@ static int bq2597x_resume(struct device *dev)
 	}
 	bq2597x_enable_adc(bq, true);
 	power_supply_changed(bq->fc2_psy);
-	bq_err("Resume successfully!");
+	bq_dbg("Resume successfully!");
 
 	return 0;
 }

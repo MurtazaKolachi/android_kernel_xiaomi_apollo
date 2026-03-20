@@ -467,7 +467,7 @@ int mius_ultrasound_tx_port_set(struct snd_kcontrol *kcontrol,
 	else
 		ret = mius_close_port(ULTRASOUND_TX_PORT_ID);
 
-	MI_PRINT_E("ultrasound_tx_port: enable=%d ret=%d",
+	MI_PRINT_D("ultrasound_tx_port: enable=%d ret=%d",
 		ultrasound_tx_port_cache, ret);
 
 	return ret;

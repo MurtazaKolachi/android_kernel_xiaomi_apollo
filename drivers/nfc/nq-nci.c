@@ -121,7 +121,7 @@ static void print_send_buffer(struct nqx_dev *nqx_dev, unsigned char *buf, int l
 	for (i = 0; i < len; i++)
 		snprintf(output + i * 2, 5, "%02x ", buf[i]);
 
-	dev_warn(&nqx_dev->client->dev, "%3d > %s\n", len, output);
+	dev_dbg(&nqx_dev->client->dev, "%3d > %s\n", len, output);
 }
 
 static void print_recv_buffer(struct nqx_dev *nqx_dev, unsigned char *buf, int len)
@@ -135,7 +135,7 @@ static void print_recv_buffer(struct nqx_dev *nqx_dev, unsigned char *buf, int l
 	for (i = 0; i < len; i++)
 		snprintf(output + i * 2, 5, "%02x ", buf[i]);
 
-	dev_warn(&nqx_dev->client->dev, "%3d < %s\n", len, output);
+	dev_dbg(&nqx_dev->client->dev, "%3d < %s\n", len, output);
 }
 #endif
 

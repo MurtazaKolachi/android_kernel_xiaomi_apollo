@@ -7249,7 +7249,7 @@ static void __exit arm_smmu_driver_exit(void)
 	platform_driver_unregister(&arm_smmu_driver);
 }
 
-subsys_initcall(arm_smmu_driver_init);
+// subsys_initcall(arm_smmu_driver_init);
 module_exit(arm_smmu_driver_exit);
 
 MODULE_DESCRIPTION("IOMMU API for ARM architected SMMU implementations");

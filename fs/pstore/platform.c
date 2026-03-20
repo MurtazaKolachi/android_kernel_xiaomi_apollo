@@ -296,11 +296,8 @@ static void allocate_buf_for_compression(void)
 	}
 
 	size = zbackend->zbufsize(psinfo->bufsize);
-	if (size <= 0) {
-		pr_err("Invalid compression size for %s: %d\n",
-		       zbackend->name, size);
+	if (size <= 0)
 		return;
-	}
 
 	buf = kmalloc(size, GFP_KERNEL);
 	if (!buf) {

@@ -187,7 +187,7 @@ static int ds28el16_Read_RomID_retry(unsigned char *RomID)
 {
 	int i;
 
-	set_sched_affinity_to_current();
+	/* set_sched_affinity_to_current(); */
 	for (i = 0; i < GET_ROM_ID_RETRY; i++) {
 		ds_info("read rom id communication start %d...\n", i);
 
@@ -204,7 +204,7 @@ static int ds28el16_get_page_status_retry(unsigned char *data)
 {
 	int i;
 
-	set_sched_affinity_to_current();
+	/* set_sched_affinity_to_current(); */
 	for (i = 0; i < GET_BLOCK_STATUS_RETRY; i++) {
 		ds_info("read page status communication start... %d\n", i);
 
@@ -225,7 +225,7 @@ static int ds28el16_get_page_data_retry(int page, unsigned char *data)
 	if (page >= MAX_PAGENUM)
 		return DS_FALSE;
 
-	set_sched_affinity_to_current();
+	/* set_sched_affinity_to_current(); */
 	for (i = 0; i < GET_USER_MEMORY_RETRY; i++) {
 		ds_dbg("read page data communication start... %d\n", i);
 
@@ -978,7 +978,7 @@ static int ds28el16_do_authentication(struct ds28e16_data *data)
 
 	ds_log("%s enter\n", __func__);
 
-	set_sched_affinity_to_current();
+	/* set_sched_affinity_to_current(); */
 	for (i = 0; i < GET_VERIFY_RETRY; i++) {
 		result = AuthenticateDS28E16(auth_ANON, auth_BDCONST, 0,
 					     pagenumber, challenge,

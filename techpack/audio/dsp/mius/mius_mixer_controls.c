@@ -801,15 +801,15 @@ int mius_system_configuration_param_get(
 	struct soc_mixer_control *mc =
 		(struct soc_mixer_control *)kcontrol->private_value;
 
-	pr_err("%s: reg: %d shift: %d\n", __func__, mc->reg, mc->shift);
+	// pr_err("%s: reg: %d shift: %d\n", __func__, mc->reg, mc->shift);
 
 	if (mc->reg != MIUS_SYSTEM_CONFIGURATION)
 		return -EINVAL;
 
 	if (mc->shift >= MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_0 &&
 		mc->shift <= MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_15){
-		MI_PRINT_E("get MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_%02d",
-			mc->shift - MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_0);
+		// MI_PRINT_E("get MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_%02d",
+		// 	mc->shift - MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_0);
 		ucontrol->value.integer.value[0] = 0;
 		return 1;
 	}
@@ -918,16 +918,16 @@ int mius_system_configuration_param_put(
 		const size_t csi =
 			mc->shift -
 			MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_0;
-		MI_PRINT_E("MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_XX csi:%zu", csi);
+		// MI_PRINT_E("MIUS_SYSTEM_CONFIGURATION_CUSTOM_SETTING_XX csi:%zu", csi);
 		if (csi >=
 			ARRAY_SIZE(mius_system_configuration_cache.custom_settings))
 			return -EINVAL;
-		MI_PRINT_E("ucontrol->value.integer.value[0]:%ld", ucontrol->value.integer.value[0]);
+		// MI_PRINT_E("ucontrol->value.integer.value[0]:%ld", ucontrol->value.integer.value[0]);
 		mius_system_configuration_cache.custom_settings[csi] =
 			ucontrol->value.integer.value[0];
 		param.type = MSC_ENGINE_CUSTOM_SETTING_0 + csi;
 		param.custom_setting = ucontrol->value.integer.value[0];
-		MI_PRINT_E("calling mius_data_write(custom_setting) csi:%zu", csi);
+		// MI_PRINT_E("calling mius_data_write(custom_setting) csi:%zu", csi);
 		return mius_data_write(MIUS_ULTRASOUND_SET_PARAMS,
 				  (const char *)&param, sizeof(param));
 	}

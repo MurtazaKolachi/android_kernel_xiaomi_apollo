@@ -717,11 +717,11 @@ this file is for attribution only of apollo
 };
 
 &smb1390 {
-	status = "disabled";
+	status = "okay";
 };
 
 &smb1390_charger {
-	status = "disabled";
+	status = "okay";
 };
 
 &usb2_phy0 {

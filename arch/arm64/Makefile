@@ -59,6 +59,14 @@ endif
 KBUILD_CFLAGS	+= -mgeneral-regs-only
 KBUILD_CFLAGS	+= $(lseinstr) $(brokengasinst) $(compat_vdso)
 
+ifeq ($(LLVM),1)
+ifeq ($(CROSS_COMPILE),)
+KBUILD_CFLAGS   += --target=aarch64-linux-gnu
+KBUILD_AFLAGS   += --target=aarch64-linux-gnu
+endif
+endif
+
+ifneq ($(CROSS_COMPILE),)
 ifeq ($(CONFIG_ARCH_KONA), y)
 ifeq ($(cc-name),clang)
 KBUILD_CFLAGS   += -mcpu=cortex-a55
@@ -69,6 +77,7 @@ endif
 else
 KBUILD_CFLAGS   += -mcpu=cortex-a77.cortex-a55
 KBUILD_AFLAGS   += -mcpu=cortex-a77.cortex-a55
+endif
 endif
 endif
 
